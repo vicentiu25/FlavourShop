@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #e8f5e8;
+  opacity: 0.9;
+  max-width: 100%;
+}
+
+form {
+  outline: 3px solid #423e37;
+  padding: 4.5%;
+  text-align: center;
+  //background-color: #78a879;
+}
+
+.row:last-child {
+  margin-top: 15%;
+}
+
+.password-not-match {
+  color: red;
+  text-align: left;
+  opacity: 1;
+  font-weight: bold;
+}
+
+mat-label, mat-icon, mat-error {
+  color: #423e37;
+}
+
+.button {
+  background-color: #423e37;
+}
+
+.forgot-password:hover{
+  color: #423e37;
+}
+
+.forgot-password{
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+}
+

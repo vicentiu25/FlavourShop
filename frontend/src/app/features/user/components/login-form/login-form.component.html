@@ -1,0 +1,30 @@
+<div class="container">
+  <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
+
+    <div class="row">
+      <mat-form-field appearance="standard">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+        <mat-icon matSuffix>account_circle</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="standard">
+        <mat-label>Password</mat-label>
+        <input [type]="'password'" matInput formControlName="password">
+        <mat-icon matSuffix> lock</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <button class="forgot-password"  type="button" (click)="forgotPassword()" >Forgot password?</button>
+
+    <div class="row">
+      <button class="button" [disabled]="!loginForm.valid" mat-raised-button mat-button color="primary"
+              type="submit">
+        Login
+      </button>
+    </div>
+
+  </form>
+</div>

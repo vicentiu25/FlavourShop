@@ -1,0 +1,59 @@
+<nav>
+  <div class="header">
+    <div style="flex: 1;">
+      <img src="../../../assets/images/LogoFlavourShop.png" alt="Logo">
+    </div>
+
+    <form class="searchbar-form">
+      <mat-form-field class="searchbar" appearance="outline">
+        <div class="searchbar-div">
+          <input placeholder="Product Name" type="text" #nameProduct name="nameProduct" matInput
+                 [formControl]="myControl" [matAutocomplete]="auto"/>
+          <button color="primary" class="searchButton" mat-icon-button (click)="clickedFn()">
+            <mat-icon>search</mat-icon>
+          </button>
+
+        </div>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+
+      </mat-form-field>
+    </form>
+
+    <div style="display: flex; align-items: center; flex: 1;justify-content: flex-end">
+      <button class="button"
+              color="Home"><a routerLink="/home"> Home</a>
+      </button>
+
+      <button class="button"
+              color="Products"><a routerLink="/products">Products</a>
+      </button>
+
+      <button class="button"
+              color="Login" *ngIf="!logedin"><a routerLink="/login">Login</a>
+      </button>
+
+
+      <button class="button"
+              color="Register" *ngIf="!logedin"><a routerLink="/registration"> Register</a>
+      </button>
+
+      <button class="button" id="logout"
+              color="Logout" (click)="logout()" *ngIf="logedin">Logout
+      </button>
+
+      <button type="button" class="icon-button" color="Shopping_cart" *ngIf="logedin">
+        <a routerLink="/shopping-cart">
+          <mat-icon>shopping_cart</mat-icon>
+        </a>
+        <span class="icon-button__badge">{{ shoppingCartItemsNumber }}</span>
+
+      </button>
+    </div>
+
+  </div>
+</nav>
+

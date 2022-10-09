@@ -1,0 +1,130 @@
+<div class="shopping">
+  <mat-card class="shopping-cart" *ngFor="let product of productsCart">
+    <div class="row">
+
+      <div class="col">
+        <mat-card-title-group>
+          <mat-card-title class="shopping-list-name">{{product.nameProduct}}</mat-card-title>
+          <mat-card-subtitle class="shopping-list-ingredients"
+                             *ngFor="let ingredient of product.ingredients">{{ ingredient.nameIngredient}}</mat-card-subtitle>
+        </mat-card-title-group>
+      </div>
+
+      <div class="col">
+        <div class="order-option">Quantity: <br><span id="quantity-field">
+        <button id="down" *ngIf="product.quantityProduct > 1; " color="primary"
+                type="submit"
+                (click)="decrementQuantity(product)">-</button>
+        <input numbersOnly type="text" id="quantity"
+               [(ngModel)]="product.quantityProduct"
+               ng-reflect-model
+               [pattern]="pattern"
+               [value]="product.quantityProduct"
+               [min]="1"
+               [max]="50"
+               min="0">
+
+        <button id="up" (click)="incrementQuantity(product)">+</button></span>
+        </div>
+      </div>
+
+      <div class="col">
+        <mat-card-actions>
+          <button class="button" color="primary" type="submit"
+                  (click)="deleteProductFromCart(product)" id="deleteIcon">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </div>
+
+      <div class="col">
+        <mat-card-content class="shopping-list-price">Price: {{getPrice(product)}}</mat-card-content>
+        <mat-card-content class="shopping-list-price">Total
+          price: {{product.quantityProduct * getPrice(product)}}</mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+
+  <div *ngIf="productsCart.length > 0; else emptyCart" class="order-container">
+    <div class="user-details">
+
+      <form [formGroup]="addressForm">
+        <div class="address-form">
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Street</mat-label>
+              <input matInput placeholder="Street name" formControlName="street">
+              <mat-error *ngIf="addressForm.controls['street'].invalid">Not a valid street name</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Street number</mat-label>
+              <input matInput placeholder="Street number" formControlName="number">
+              <mat-error *ngIf="addressForm.controls['number'].invalid">Not a valid street number</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Postal code</mat-label>
+              <input matInput placeholder="Postal code" formControlName="code">
+              <mat-error *ngIf="addressForm.controls['code'].invalid">Not a valid postal code</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>County</mat-label>
+              <input matInput placeholder="County" formControlName="county">
+              <mat-error *ngIf="addressForm.controls['county'].invalid">Not a valid county</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Town</mat-label>
+              <input matInput placeholder="Town" formControlName="town">
+              <mat-error *ngIf="addressForm.controls['town'].invalid">Not a valid town</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Country</mat-label>
+              <input matInput placeholder="Country" formControlName="country">
+              <mat-error *ngIf="addressForm.controls['country'].invalid">Not a valid country</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </form>
+
+      <div class="total-price">
+        <p>Total price: {{getTotal()}} RON</p>
+      </div>
+
+      <div class="actions-footer">
+      <button color="primary"
+              [disabled]="addressForm.invalid"
+              (click)="onSubmit()" class="buttonSubmit"
+              type="button">Submit
+      </button>
+      </div>
+    </div>
+
+    <div class="actions-footer">
+      <button class="buttonContinue" type="button">
+        <a routerLink="/products"> Continue shopping</a>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyCart>
+  <h1 [style.text-align]="'center'">Your cart is empty</h1>
+</ng-template>
+

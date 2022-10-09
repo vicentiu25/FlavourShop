@@ -1,0 +1,98 @@
+<div class="products">
+  <div class="buttons">
+    <button mat-button class="sort-button button" [matMenuTriggerFor]="menu">Sort
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <button mat-button class="add-product-button button" *ngIf="role === 'admin';" (click)="openDialog()">
+      Add Product
+    </button>
+  </div>
+
+
+  <div class="sortAndEdit">
+
+    <mat-menu class="sort" #menu="matMenu">
+      <button mat-menu-item (click)="sortProduct('asc', 'price')">Ascending by Price</button>
+      <button mat-menu-item (click)="sortProduct('desc', 'price')">Descending by Price</button>
+      <button mat-menu-item (click)="sortProduct('asc', 'name')">Ascending by Name</button>
+      <button mat-menu-item (click)="sortProduct('desc', 'name')">Descending by Name</button>
+    </mat-menu>
+
+  </div>
+
+
+  <mat-card class="example-card" *ngFor="let product of pageSlice; let index = index">
+    <div class="row">
+
+      <div class="col main-col">
+        <mat-card-title-group>
+          <mat-card-title class="product-name">{{product.nameProduct}}</mat-card-title>
+          <mat-card-subtitle class="product-price">Price: {{product.priceProduct}} RON</mat-card-subtitle>
+        </mat-card-title-group>
+
+        <mat-card-content class="product-description">{{product.description}}</mat-card-content>
+        <div class="rate">
+          <p>Rating: {{product.rating}} ({{product.noRatings}} reviews)</p>
+
+          <div class="stars" *ngFor="let i of [0,1,2,3,4]"><!-- type="radio" id="star5" name="rate" value="5"-->
+            <mat-icon *ngIf="i < product.rating">star</mat-icon>
+            <mat-icon *ngIf="i >= product.rating">star_border</mat-icon>
+          </div>
+
+        </div>
+
+        <mat-card-actions>
+          <div></div>
+          <button class="button" *ngIf="product.quantityProduct >= 0; " color="primary"
+                  type="submit" (click)="addProduct(product, index)">
+            Add to cart
+            <a href="/ingredients"></a>
+          </button>
+        </mat-card-actions>
+      </div>
+
+      <div class="col">
+        <input numbersOnly placeholder="Enter a Quantity!" [(ngModel)]="quantities[index]" [pattern]="pattern"
+               type="number" min="1">
+        <label *ngIf="true" [ngClass]="'error'"> </label>
+
+        <br><br>
+
+        <mat-form-field class="ingredient-tab" appearance="fill">
+          <mat-label>Choose ingredients</mat-label>
+          <mat-select class="ingredient-list" [(value)]="selectedProductIngredients[index]" multiple>
+            <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ ingredient.nameIngredient}}
+              : {{ingredient.priceIngredient}} RON
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button class="delete-product-button" mat-fab color="primary" *ngIf="role === 'admin';" (click)="onDeleteProduct(product.idProduct)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <script>
+          document.querySelector('.select-field').addEventListener('click', () => {
+            document.querySelector('.list').classList.toggle('show');
+            document.querySelector('.down-arrow').classList.toggle('rotate150');
+          });
+        </script>
+      </div>
+
+      <div class="col">
+        <img class="image"  src="{{product.imgProduct}}"  onerror="this.src='https://www.inkling.com/wp-content/uploads/2021/06/SD-default-image.png'">
+
+        <div>
+            <button  class="button" id="buttonReview" *ngIf="logedin" (click)="openDialogReview(product.idProduct)">Add review</button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<mat-paginator [length]="products.length"
+               [pageSize]="4"
+               [pageSizeOptions]="[4, 8, 16]"
+               aria-label="Select page"
+               (page)="onPageChange($event)">
+</mat-paginator>

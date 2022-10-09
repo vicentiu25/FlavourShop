@@ -1,0 +1,44 @@
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+.pop-up {
+  width: 300px;
+  height: 500px;
+}
+
+.buttonEdit:hover{
+  background-color: #78a879;
+}
+
+.button:hover {
+  background-color: #78a879;
+}
+
+.button, .buttonEdit {
+  margin-top: 10%;
+  display: block;
+  text-align: center;
+  background: #423e37;
+  color: white;
+  border-radius: 3px;
+  width: 160px;
+  height: 45px;
+  font-size: 20px;
+  //line-height: 50px;
+  //margin: 5px;
+}
+
+.add-product-form{
+  display: flex;
+  justify-content: center;
+  //margin-left: 10%;
+  width: 400px;
+}
+
+h2{
+  margin-bottom: 3%;
+}
+
+mat-form-field{
+  width: 400px;
+}

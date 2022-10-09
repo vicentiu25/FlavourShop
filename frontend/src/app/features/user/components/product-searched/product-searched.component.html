@@ -1,0 +1,52 @@
+<div class="products">
+  <mat-card class="example-card" *ngFor="let product of products; index as index">
+    <div class="row">
+      <div class="col main-col">
+        <mat-card-title-group>
+          <mat-card-title class="product-name">{{product.nameProduct}}</mat-card-title>
+          <mat-card-subtitle class="product-price">Price: {{product.priceProduct}} RON</mat-card-subtitle>
+        </mat-card-title-group>
+
+        <mat-card-content class="product-description">{{product.description}}</mat-card-content>
+
+        <mat-card-actions>
+          <div></div>
+          <button class="button" *ngIf="product.quantityProduct >= 0; "  color="primary"
+                  type="submit" (click)="addProduct(product, index)">
+            Add to cart
+            <a href="/ingredients"></a>
+          </button>
+        </mat-card-actions>
+      </div>
+      <div class="col">
+        <input placeholder="Enter a Quantity!"  [(ngModel)]="quantities[index]" [pattern]="pattern" type="number" min="0">
+        <label *ngIf="true" [ngClass]="'error'"> </label>
+
+        <br><br>
+
+        <mat-form-field class="ingredient-tab" appearance="fill">
+          <mat-label>Choose ingredients</mat-label>
+          <mat-select class="ingredient-list" [(value)]="selectedProductIngredients[index]" multiple>
+            <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">{{ ingredient.nameIngredient}}: {{ingredient.priceIngredient}} RON</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <script>
+            document.querySelector('.select-field').addEventListener('click', () => {
+              document.querySelector('.list').classList.toggle('show');
+              document.querySelector('.down-arrow').classList.toggle('rotate150');
+          });
+        </script>
+
+
+      </div>
+      <div class="col">
+        <div style="margin-right:30%;">
+          <img mat-card-sm-image src="{{product.imgProduct}}" alt="image not found">
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
+</div>
+

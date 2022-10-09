@@ -1,0 +1,49 @@
+<form class="add-product-form" [formGroup]="saveProductForm" (ngSubmit)="submit()">
+  <div class="add-product-div">
+    <h2>Add product</h2>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput placeholder="Shampoo" formControlName="nameProduct" required>
+    </mat-form-field>
+  </div>
+  <div class="pop-up">
+  <div class="example-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Price</mat-label>
+    <input type="number" matInput placeholder="Ex: 10 RON" formControlName="priceProduct"  required >
+  </mat-form-field>
+</div>
+<div class="example-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Quantity</mat-label>
+    <input type="number" matInput placeholder="Ex: 10 or 20" formControlName="quantityProduct" required>
+  </mat-form-field>
+</div>
+<div class="example-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea type="text" rows="5" matInput placeholder="Description of the product" formControlName="description" required ></textarea>
+  </mat-form-field>
+</div>
+
+  <div class="div-img">
+    <label class="product-image" for="img">Select image</label>
+    <input
+      class="field pic-choose"
+      type="file"
+      id="img"
+      name="picture"
+      accept="image/*"
+      (change)="uploadFile($event)"
+    />
+  </div>
+
+  <button class="button">
+    Add Product
+  </button>
+</div>
+  </div>
+</form>
+
+
